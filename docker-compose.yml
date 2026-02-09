@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  fe-sv-svelte:
+    image: sv-isub.svelte:0.0.6
+    container_name: cv_i-sub.svelte
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - DB_URL=/app/db/cv_isub.db
+    volumes:
+      - /mnt/win-share/docker-storage/cv/db:/app/db
+    
