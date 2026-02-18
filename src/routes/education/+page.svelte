@@ -1,33 +1,53 @@
 <script lang="ts">
 	const education = [
-		{ degree: "Associate Degree – Information Technology", school: "Academy of Computer & Management (AMIK) Serang – Banten", year: "2013" },
-		{ degree: "High School Diploma – Mechanical Automotive Engineering", school: "SMKN 2 Pandeglang", year: "2009" }
+		{
+			degree: "Associate Degree – Information Technology",
+			school: "Academy of Computer & Management (AMIK) Serang – Banten",
+			year: "2013",
+		},
+		{
+			degree: "High School Diploma – Mechanical Automotive Engineering",
+			school: "SMKN 2 Pandeglang",
+			year: "2009",
+		},
 	];
 </script>
 
-<div class="container py-4 animate__animated animate__fadeInUp">
-	<div class="row">
-		<div class="col-12">
-			<h1 class="text-center mb-4">Education</h1>
-			<section class="card animate__animated animate__fadeInUp p-4">
-				<div class="card-header">
-					<h2 class="card-title">Education</h2>
-				</div>
-				<div class="card-body">
-					<div class="timeline">
-						{#each education as edu, i}
-							<div class="timeline-item">
-								<div class="timeline-marker bg-primary"></div>
-								<div class="timeline-content">
-									<h5 class="timeline-title"><i class="bi bi-mortarboard me-2"></i>{edu.degree}</h5>
-									<p class="text-muted timeline-meta"><i class="bi bi-building me-1"></i>{edu.school}</p>
-									<p class="text-muted timeline-meta"><i class="bi bi-calendar me-1"></i>{edu.year}</p>
-								</div>
-							</div>
-						{/each}
-					</div>
-				</div>
-			</section>
-		</div>
+<div class="space-y-6 animate__animated animate__fadeInUp">
+	<div class="flex flex-col gap-3">
+		<p class="badge-soft w-fit">
+			<i class="bi bi-mortarboard"></i> Education
+		</p>
+		<h1 class="hero-title">Education</h1>
+		<p class="hero-subtitle">Formal education history.</p>
 	</div>
+
+	<section class="card-glass animate__animated animate__fadeInUp p-5">
+		<div class="border-b border-slate-200/70 pb-4 dark:border-slate-800">
+			<h2 class="section-title">Education</h2>
+		</div>
+		<div class="mt-4 space-y-6">
+			<div class="timeline">
+				{#each education as edu}
+					<div class="timeline-item">
+						<span class="timeline-marker"></span>
+						<div class="space-y-1">
+							<p
+								class="text-base font-semibold text-slate-900 dark:text-slate-50 flex items-center gap-2"
+							>
+								<i class="bi bi-mortarboard text-sky-500"
+								></i>{edu.degree}
+							</p>
+							<p class="subtext flex items-center gap-2">
+								<i class="bi bi-building"></i>{edu.school}
+							</p>
+							<p class="subtext flex items-center gap-2">
+								<i class="bi bi-calendar"></i>{edu.year}
+							</p>
+						</div>
+					</div>
+				{/each}
+			</div>
+		</div>
+	</section>
 </div>

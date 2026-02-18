@@ -1,0 +1,157 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where([data-mode=dark], [data-mode=dark] *));
+
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton-svelte';
+@import '@skeletonlabs/skeleton/themes/wintry';
+
+:root {
+	color-scheme: light;
+}
+
+:root[data-mode='dark'] {
+	color-scheme: dark;
+}
+
+body {
+	@apply min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50;
+	font-family: 'Inter', 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.app-shell {
+	@apply min-h-screen bg-slate-50/80 text-slate-900 dark:bg-slate-950/90 dark:text-slate-50;
+}
+
+.appbar-floating {
+	@apply sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-200/70 dark:bg-slate-900/90 dark:border-slate-800;
+}
+
+.appbar-floating-inner {
+	@apply mx-3 my-2 rounded-2xl border border-sky-200/50 bg-white/90 px-4 py-3 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/90;
+}
+
+.app-main-floating {
+	@apply mx-3 mt-4 rounded-2xl border border-slate-200/80 bg-white/90 p-4 pb-24 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/90;
+}
+
+@media (min-width: 1024px) {
+	.appbar-floating {
+		@apply fixed top-6 left-1/2 z-40 w-full max-w-6xl -translate-x-1/2 border-none bg-transparent;
+	}
+
+	.appbar-floating-inner {
+		@apply border border-sky-200/60 bg-white/95 px-6 py-4 shadow-lg backdrop-blur dark:border-slate-800 dark:bg-slate-900/95;
+	}
+
+	.app-main-floating {
+		@apply mx-auto mt-28 w-full max-w-6xl rounded-3xl border border-sky-100 bg-white/85 p-8 shadow-xl backdrop-blur dark:border-slate-800 dark:bg-slate-900/85;
+	}
+}
+
+.nav-pill {
+	@apply inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300;
+}
+
+.nav-pill.active {
+	@apply bg-sky-100 text-sky-800 shadow-sm dark:bg-slate-800 dark:text-sky-200;
+}
+
+.mobile-nav {
+	@apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-3 border-t border-sky-200/60 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-900/90;
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-nav-item {
+	@apply flex flex-col items-center justify-center gap-1 py-3 text-xs font-medium text-slate-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 dark:text-slate-300;
+}
+
+.mobile-nav-item.active {
+	@apply text-sky-700 dark:text-sky-300;
+}
+
+@media (min-width: 1024px) {
+	.mobile-nav {
+		@apply left-1/2 right-auto bottom-6 w-auto -translate-x-1/2 rounded-full border shadow-lg backdrop-blur flex items-center gap-1 px-2 py-1 dark:border-slate-800 dark:bg-slate-900;
+		padding-bottom: 0;
+	}
+
+	.mobile-nav-item {
+		@apply min-w-28 flex-row gap-2 rounded-full px-3 py-2 text-sm;
+	}
+
+	.mobile-nav-item.active {
+		@apply bg-sky-100 dark:bg-slate-800;
+	}
+}
+
+.card-glass {
+	@apply rounded-2xl border border-slate-200/80 bg-white/85 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/85;
+}
+
+.section-title {
+	@apply text-xl font-semibold text-slate-900 dark:text-slate-50;
+}
+
+.subtext {
+	@apply text-sm text-slate-500 dark:text-slate-400;
+}
+
+.progress-rail {
+	@apply h-2 w-full rounded-full bg-slate-200/80 dark:bg-slate-800;
+}
+
+.progress-bar {
+	@apply h-2 rounded-full bg-sky-500;
+}
+
+.badge-soft {
+	@apply inline-flex items-center gap-1 rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-slate-800 dark:text-sky-200;
+}
+
+.table-clean {
+	@apply w-full text-sm;
+}
+
+.table-clean td {
+	@apply py-2 align-top text-slate-700 dark:text-slate-200;
+}
+
+.link-ghost {
+	@apply text-sky-600 hover:text-sky-700 underline-offset-4 hover:underline dark:text-sky-300 dark:hover:text-sky-200;
+}
+
+.avatar {
+	@apply h-12 w-12 rounded-full bg-linear-to-br from-sky-200 to-sky-400 text-slate-900 shadow-md ring-2 ring-white/70 dark:ring-slate-800;
+}
+
+.hero-title {
+	@apply text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50;
+}
+
+.hero-subtitle {
+	@apply text-base text-slate-600 dark:text-slate-300;
+}
+
+.timeline {
+	@apply relative border-l border-slate-200 dark:border-slate-800;
+}
+
+.timeline-item {
+	@apply relative mb-6 pl-6;
+}
+
+.timeline-marker {
+	@apply absolute -left-1 top-0 h-3 w-3 rounded-full bg-sky-500 ring-4 ring-white dark:ring-slate-900;
+}
+
+.btn-primary {
+	@apply inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 disabled:opacity-60;
+}
+
+.btn-ghost {
+	@apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 dark:border-slate-800 dark:text-slate-100 dark:hover:bg-slate-800;
+}
+
+.chip-muted {
+	@apply inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200;
+}

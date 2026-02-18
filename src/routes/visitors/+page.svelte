@@ -88,150 +88,135 @@
   });
 </script>
 
-<div class="container py-4 animate__animated animate__fadeInUp">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-center mb-4 animate__animated animate__fadeInUp">Who Visits</h1>
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <div class="card animate__animated animate__fadeInUp h-100">
-            <div class="card-header">
-              <h5 class="card-title">Visitor Stats</h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <div class="card bg-primary text-white h-100">
-                    <div class="p-3">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-eye-fill fs-2 me-3"></i>
-                        <div>
-                          <h3 class="card-title mb-0">{visitorCount}</h3>
-                          <p class="card-text mb-0">Total Visits</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <div class="card bg-success text-white h-100">
-                    <div class="p-3">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-chat-dots-fill fs-2 me-3"></i>
-                        <div>
-                          <h3 class="card-title mb-0">{feedbacks.length}</h3>
-                          <p class="card-text mb-0">Feedbacks Received</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-4">
-          <div class="card animate__animated animate__fadeInUp h-100">
-            <div class="card-header d-flex justify-content-between">
-              <h5 class="card-title">Leave Your Feedback</h5>
-              <button
-                class="btn btn-sm btn-outline-primary"
-                on:click={() => (showForm = !showForm)}
-              >
-                <i class="bi bi-plus-circle me-1"></i>{showForm ? 'Cancel' : 'Add Feedback'}
-              </button>
-            </div>
-            <div class="card-body">
-              {#if showForm}
-                <form on:submit|preventDefault={submitFeedback}>
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Your Name or Email</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      bind:value={newFeedback.name}
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="message" class="form-label">Your Message</label>
-                    <textarea
-                      class="form-control"
-                      id="message"
-                      rows="3"
-                      bind:value={newFeedback.message}
-                      placeholder="Share your thoughts, suggestions, or feedback..."
-                      required
-                    ></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Submit Feedback</button>
-                </form>
-              {:else}
-                <p class="text-muted">
-                  Your feedback helps me improve! Click "Add Feedback" to share your thoughts.
-                </p>
-              {/if}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card animate__animated animate__fadeInUp">
-        <div class="card-header">
-          <h5 class="card-title">Recent Feedbacks</h5>
-        </div>
-        <div class="card-body">
-          {#if loading}
-            <div class="text-center">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          {:else if feedbacks.length > 0}
-            <div class="row">
-              {#each feedbacks as feedback}
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100 animate__animated animate__fadeInUp">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start">
-                        <div
-                          class="avatar avatar-lg bg-primary text-white me-3"
-                          style="border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-weight: bold;"
-                        >
-                          {feedback.name.charAt(0).toUpperCase()}
-                        </div>
-                        <div class="flex-fill">
-                          <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                              <h6 class="card-title mb-1">{feedback.name}</h6>
-                              <small class="text-muted"
-                                >{new Date(feedback.timestamp).toLocaleDateString('en-US', {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                })}</small
-                              >
-                            </div>
-                            <i class="bi bi-chat-quote text-primary fs-4"></i>
-                          </div>
-                          <p class="card-text mt-2 mb-0">{feedback.message}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              {/each}
-            </div>
-          {:else}
-            <div class="text-center py-5">
-              <i class="bi bi-chat-dots text-muted fs-1 mb-3"></i>
-              <p class="text-muted">No feedbacks yet. Be the first to leave one!</p>
-            </div>
-          {/if}
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="space-y-8 animate__animated animate__fadeInUp">
+	<div class="flex flex-col gap-3">
+		<p class="badge-soft w-fit"><i class="bi bi-people"></i> Visitors</p>
+		<h1 class="hero-title">Who Visits</h1>
+		<p class="hero-subtitle">Live visit counter and a small guestbook for quick feedback.</p>
+	</div>
+
+	<section class="grid gap-4 md:grid-cols-2">
+		<div class="card-glass p-5">
+			<div class="flex items-center justify-between border-b border-slate-200/70 pb-4 dark:border-slate-800">
+				<h2 class="section-title">Visitor Stats</h2>
+			</div>
+			<div class="mt-4 grid gap-3 sm:grid-cols-2">
+				<div class="rounded-xl border border-slate-200/70 bg-linear-to-br from-sky-500/15 via-cyan-400/10 to-emerald-400/10 p-4 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.2)] dark:border-slate-800 dark:bg-slate-900/40">
+					<div class="flex items-center gap-3">
+						<div class="flex h-11 w-11 items-center justify-center rounded-full bg-sky-500/20 text-sky-700 dark:text-sky-100">
+							<i class="bi bi-eye-fill text-xl"></i>
+						</div>
+						<div>
+							<p class="subtext">Total Visits</p>
+							<p class="text-2xl font-semibold text-slate-900 dark:text-slate-50">{visitorCount}</p>
+						</div>
+					</div>
+				</div>
+				<div class="rounded-xl border border-slate-200/70 bg-linear-to-br from-violet-500/15 via-purple-400/10 to-indigo-400/10 p-4 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.2)] dark:border-slate-800 dark:bg-slate-900/40">
+					<div class="flex items-center gap-3">
+						<div class="flex h-11 w-11 items-center justify-center rounded-full bg-violet-500/20 text-violet-700 dark:text-violet-100">
+							<i class="bi bi-chat-dots-fill text-xl"></i>
+						</div>
+						<div>
+							<p class="subtext">Feedback Received</p>
+							<p class="text-2xl font-semibold text-slate-900 dark:text-slate-50">{feedbacks.length}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-glass p-5">
+			<div class="flex items-center justify-between border-b border-slate-200/70 pb-4 dark:border-slate-800">
+				<h2 class="section-title">Leave Feedback</h2>
+				<button class="btn-ghost btn-sm flex items-center gap-2" on:click={() => (showForm = !showForm)}>
+					<i class="bi bi-plus-circle"></i>
+					{showForm ? 'Cancel' : 'Add Feedback'}
+				</button>
+			</div>
+			<div class="mt-4 space-y-3">
+				{#if showForm}
+					<form class="space-y-3" on:submit|preventDefault={submitFeedback}>
+						<label class="space-y-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+							<span>Your Name or Email</span>
+							<input
+								type="text"
+								class="input"
+								bind:value={newFeedback.name}
+								required
+							/>
+						</label>
+						<label class="space-y-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+							<span>Your Message</span>
+							<textarea
+								class="input h-28"
+								bind:value={newFeedback.message}
+								placeholder="Share thoughts, suggestions, or feedback..."
+								required
+							></textarea>
+						</label>
+						<div class="flex flex-wrap gap-2">
+							<button type="submit" class="btn-primary btn-sm flex items-center gap-2">
+								<i class="bi bi-send"></i>
+								Send
+							</button>
+							<button type="button" class="btn-ghost btn-sm" on:click={() => (showForm = false)}>
+								Cancel
+							</button>
+						</div>
+					</form>
+				{:else}
+					<p class="subtext">Your feedback helps me improve—tap “Add Feedback” to drop a note.</p>
+				{/if}
+			</div>
+		</div>
+	</section>
+
+	<section class="card-glass p-5 animate__animated animate__fadeInUp">
+		<div class="border-b border-slate-200/70 pb-4 dark:border-slate-800">
+			<h2 class="section-title">Recent Feedback</h2>
+		</div>
+		<div class="mt-4">
+			{#if loading}
+				<div class="flex justify-center py-8">
+					<div class="spinner-border"></div>
+				</div>
+			{:else if feedbacks.length > 0}
+				<div class="grid gap-4 md:grid-cols-2">
+					{#each feedbacks as feedback}
+						<div class="rounded-xl border border-slate-200/70 bg-slate-50/70 p-4 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.2)] dark:border-slate-800 dark:bg-slate-900/40">
+							<div class="flex items-start gap-3">
+								<div class="flex h-12 w-12 items-center justify-center rounded-full bg-sky-500/15 text-lg font-semibold text-sky-700 dark:text-sky-100">
+									{feedback.name.charAt(0).toUpperCase()}
+								</div>
+								<div class="flex-1 space-y-1">
+									<div class="flex items-start justify-between gap-2">
+										<div>
+											<p class="text-sm font-semibold text-slate-900 dark:text-slate-50">{feedback.name}</p>
+											<p class="text-xs text-slate-500 dark:text-slate-400">
+												{new Date(feedback.timestamp).toLocaleDateString('en-US', {
+													year: 'numeric',
+													month: 'short',
+													day: 'numeric',
+													hour: '2-digit',
+													minute: '2-digit',
+												})}
+											</p>
+										</div>
+										<i class="bi bi-chat-quote text-sky-500"></i>
+									</div>
+									<p class="text-sm text-slate-700 dark:text-slate-200">{feedback.message}</p>
+								</div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<div class="text-center py-8">
+					<i class="bi bi-chat-dots text-3xl text-slate-400"></i>
+					<p class="subtext mt-2">No feedback yet. Be the first!</p>
+				</div>
+			{/if}
+		</div>
+	</section>
 </div>

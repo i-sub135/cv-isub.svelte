@@ -1,96 +1,62 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	$: pathname = $page.url.pathname;
+  import { page } from "$app/state";
+  import { navItems } from "$lib/config/nav-items";
+
+  let { mode, onToggleMode } = $props<{
+    mode: "light" | "dark";
+    onToggleMode?: (next: "light" | "dark") => void;
+  }>();
+  const pathname = $derived(page.url.pathname);
+  const version = __APP_VERSION__;
+
+  const toggle = () => {
+    const next = mode === "light" ? "dark" : "light";
+    onToggleMode?.(next);
+  };
 </script>
 
-<header class="navbar navbar-expand-md d-print-none">
-  <div class="container-xl">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbar-menu"
-      aria-controls="navbar-menu"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
+<div
+  class="flex items-center justify-between gap-3 lg:items-center lg:justify-between"
+>
+  <a href="/" class="flex items-center gap-3">
+    <div
+      class="avatar flex items-center justify-center text-lg font-bold text-slate-900 dark:text-slate-50"
     >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-	 <!-- BEGIN NAVBAR LOGO -->
-    <a href="/" aria-label="Home" class="navbar-brand navbar-brand-autodark me-3">
-      <i class="bi bi-person-circle"></i> Virtual CV
-    </a>
-    <!-- END NAVBAR LOGO -->
-    <ul class="navbar-nav">
-      <li class="nav-item" class:active={pathname === '/profile'}>
-        <a class="nav-link" href="/profile">
-          <span class="nav-link-icon">
-            <i class="bi bi-person"></i>
-          </span>
-          <span class="nav-link-title"> Profile </span>
-        </a>
-      </li>
-
-      <li class="nav-item" class:active={pathname === '/experience'}>
-        <a class="nav-link" href="/experience">
-          <span class="nav-link-icon">
-            <i class="bi bi-briefcase"></i>
-          </span>
-          <span class="nav-link-title"> Experience </span>
-        </a>
-      </li>
-
-      <li class="nav-item" class:active={pathname === '/skills'}>
-        <a class="nav-link" href="/skills">
-          <span class="nav-link-icon">
-            <i class="bi bi-tools"></i>
-          </span>
-          <span class="nav-link-title">  Skills</span>
-        </a>
-      </li>
-
-      <li class="nav-item" class:active={pathname === '/education'}>
-        <a class="nav-link" href="/education">
-          <span class="nav-link-icon">
-            <i class="bi bi-mortarboard"></i>
-          </span>
-          <span class="nav-link-title"> Education </span>
-        </a>
-      </li>
-
-      <li class="nav-item" class:active={pathname === '/about-me'}>
-        <a class="nav-link" href="/about-me">
-          <span class="nav-link-icon">
-            <i class="bi bi-person-circle"></i>
-          </span>
-          <span class="nav-link-title"> About Me </span>
-        </a>
-      </li>
-
-    </ul>
-    <div class="navbar-nav flex-row order-md-last ms-auto">
-      <div class="nav-item dropdown">
-        <a
-          href="/"
-          class="nav-link d-flex lh-1 text-reset"
-          data-bs-toggle="dropdown"
-          aria-label="Open user menu"
-        >
-          <span
-            class="avatar avatar-sm"
-            style="background-image: url(/img/anime.png)"
-          ></span>
-          <div class="d-none d-xl-block ps-2">
-            <div>Iyan Subdiana</div>
-            <div class="mt-1 small text-secondary">Tech Enthusiast</div>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-          <a href="/visitors" class="dropdown-item"> <i class="bi bi-info-circle"></i> Who Visits</a>
-          <div class="dropdown-divider"></div>
-          <a href="/" class="dropdown-item"><i class="bi bi-gear"></i>Settings</a>
-        </div>
-      </div>
+      <i class="bi bi-person-circle"></i>
     </div>
+    <div>
+      <p class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+        Virtual CV
+      </p>
+      <p class="text-xs text-slate-500 dark:text-slate-400">Iyan Subdiana</p>
+      <p class="mt-1 inline-block text-[10px] leading-none">
+        v{version}
+      </p>
+    </div>
+  </a>
+
+  <div class="hidden flex-wrap items-center gap-2 lg:flex">
+    {#each navItems as item}
+      <a
+        href={item.href}
+        class={`nav-pill ${pathname === item.href ? "active" : ""}`}
+      >
+        <i class={`bi ${item.icon}`}></i>
+        {item.label}
+      </a>
+    {/each}
   </div>
-</header>
+
+  <div class="flex items-center gap-3 lg:gap-4">
+    <a href="/visitors" class="chip-muted"
+      ><i class="bi bi-people"></i><span>Visitors</span></a
+    >
+    <button class="btn-ghost" onclick={toggle} aria-label="Toggle theme">
+      {#if mode === "light"}
+        <i class="bi bi-moon"></i>
+      {:else}
+        <i class="bi bi-sun"></i>
+      {/if}
+    </button>
+  </div>
+</div>
